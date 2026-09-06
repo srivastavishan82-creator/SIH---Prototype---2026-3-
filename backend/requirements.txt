@@ -1,0 +1,29 @@
+# Lean requirements - runs WITHOUT PostgreSQL, Redis, PaddleOCR, Torch
+# Heavy AI deps are optional and mocked; install requirements-full.txt later for full OCR
+# Lower bounds kept flexible (>=) so `pip install -r requirements.txt` doesn't downgrade a working env
+fastapi>=0.104.1
+uvicorn[standard]>=0.24.0
+sqlalchemy>=2.0.23
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+bcrypt==4.0.1
+python-multipart>=0.0.6
+python-dotenv>=1.0.0
+aiofiles>=23.2.1
+httpx>=0.25.2
+pillow
+pypdf>=3.17.4
+# Postgres / Supabase driver (required when DATABASE_URL is postgresql://...)
+psycopg2-binary>=2.9.9
+# Optional heavy deps (uncomment when needed): see requirements-full.txt
+# paddleocr>=2.7.0.3
+# paddlepaddle>=2.6.2
+# pdf2image==1.17.0
+# psycopg2-binary==2.9.9
+# redis==5.0.1
+# celery==5.3.4
+# spacy==3.7.2
+# torch==2.1.2
+# transformers==4.36.0
