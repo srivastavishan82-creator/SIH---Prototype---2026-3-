@@ -20,8 +20,10 @@ api.interceptors.request.use((config) => {
 // message instead of cryptic axios/proxy errors.
 // - Backend not running  -> no response, or a 5xx HTML page from the vite
 //   preview proxy  => flag as backendDown with a "start the backend" message.
-export const BACKEND_DOWN_MESSAGE =
-  'Backend unreachable — start it with start_backend.bat (http://127.0.0.1:8000) and retry';
+const IS_PAGES = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+export const BACKEND_DOWN_MESSAGE = IS_PAGES
+  ? 'Live site is frontend-only (GitHub Pages). Backend runs locally — download the repo and run start_all.bat, or set VITE_API_URL to a hosted backend. Use Demo Login below to preview the UI.'
+  : 'Backend unreachable — start it with start_backend.bat (http://127.0.0.1:8000) and retry';
 
 api.interceptors.response.use(
   (response) => response,

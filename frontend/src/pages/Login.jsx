@@ -11,17 +11,30 @@ export default function Login({ onLogin }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
+  const handleDemoLogin = (values) => {
+    const email = (values.email || 'demo@bhoomi.local').toLowerCase();
+    const role = email === 'verifier@lrds.gov.in' ? 'verifier' : 'citizen';
+    const fakeToken = `demo.${btoa(email)}.${Date.now()}`;
+    localStorage.setItem('lrds_token', fakeToken);
+    localStorage.setItem('lrds_demo_user', JSON.stringify({ email, role, full_name: email.split('@')[0] }));
+    message.success(`Demo preview as ${email} (${role}) — backend offline, data is mocked`);
+    onLogin();
+  };
   const handleFinish = async (values) => {
     setLoading(true);
     try {
       const res = await apiLogin(values.email, values.password);
+      localStorage.removeItem('lrds_demo_user');
       localStorage.setItem('lrds_token', res.access_token);
       message.success(`Welcome ${res.email} (${res.role})`);
       onLogin();
     } catch (e) {
       const status = e?.response?.status;
-      if (e?.backendDown) message.error(e.message);
-      else if (status === 401) message.error('Invalid credentials — check email and password');
+      if (e?.backendDown) {
+        message.warning(e.message);
+        // Auto demo fallback so Pages preview is not blocked
+        handleDemoLogin(values);
+      } else if (status === 401) message.error('Invalid credentials — check email and password');
       else message.error(e?.response?.data?.detail || e?.message || 'Login failed');
     } finally { setLoading(false); }
   };
@@ -126,9 +139,15 @@ export default function Login({ onLogin }) {
             </Form.Item>
           </Form>
 
-          <Divider style={{ borderColor: '#E1E6EE', fontSize: 11, margin: '20px 0', color: '#94A3B8' }}>PROTECTED · SIH 2026</Divider>
+          <Divider style={{ borderColor: '#E1E6EE', fontSize: 11, margin: '12px 0', color: '#94A3B8' }}>PROTECTED · SIH 2026</Divider>
+          <Button block onClick={() => handleDemoLogin({ email: 'demo@bhoomi.local', password: 'demo' })} style={{ borderRadius: 12, height: 44, fontWeight: 700, background: '#F1F6FF', border: '1px solid #D6E4FB', color: '#0842A0' }}>
+            Preview without backend (Demo)
+          </Button>
+          <div style={{ textAlign: 'center', fontSize: 11, color: '#94A3B8', marginTop: 8 }}>
+            GitHub Pages is frontend-only — backend runs locally via start_all.bat
+          </div>
 
-          <div style={{ textAlign: 'center', fontSize: 12, color: '#64748B' }}>
+          <div style={{ textAlign: 'center', fontSize: 12, color: '#64748B', marginTop: 10 }}>
             Every login and verification is recorded in the audit trail.
           </div>
         </Card>

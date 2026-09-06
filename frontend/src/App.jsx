@@ -98,7 +98,13 @@ function App() {
         setAvgAccuracy(null);
       });
     if (localStorage.getItem('lrds_token')) {
-      getCurrentUser().then(setHeaderUser).catch(() => setHeaderUser(null));
+      getCurrentUser().then(setHeaderUser).catch(() => {
+        try {
+          const demo = JSON.parse(localStorage.getItem('lrds_demo_user') || 'null');
+          if (demo) setHeaderUser(demo);
+          else setHeaderUser(null);
+        } catch { setHeaderUser(null); }
+      });
     } else {
       setHeaderUser(null);
     }
@@ -150,7 +156,7 @@ function App() {
       { key: 'profile', label: 'View Profile', icon: <UserOutlined /> },
       { key: 'prefs', label: 'Preferences', icon: <SettingOutlined /> },
       { type: 'divider' },
-      { key: 'signout', label: 'Sign Out', danger: true, onClick: () => { localStorage.removeItem('lrds_token'); setHeaderUser(null); setIsAuthenticated(false); navigate('/login'); } },
+      { key: 'signout', label: 'Sign Out', danger: true, onClick: () => { localStorage.removeItem('lrds_token'); localStorage.removeItem('lrds_demo_user'); setHeaderUser(null); setIsAuthenticated(false); navigate('/login'); } },
     ],
     onClick: handleUserMenuClick,
   };
