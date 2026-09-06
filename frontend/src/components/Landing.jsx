@@ -442,8 +442,8 @@ function ShowcaseSection({ onLaunch, P = PALETTE }) {
                   </div>
 
                   <div style={{ marginTop: 18, width: '100%' }}>
-                    <button onClick={onLaunch} style={{ height: 42, paddingInline: 20, width: '100%', maxWidth: 320, fontSize: 13, borderRadius: 10, fontWeight: 800, color: '#FFFFFF', background: '#0B57D0', border: '1px solid #0B57D0', boxShadow: '0 6px 20px rgba(11,87,208,0.25)', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxSizing: 'border-box' }}>
-                      Launch Analytics Dashboard →
+                    <button onClick={() => document.getElementById('pipeline')?.scrollIntoView({ behavior: 'smooth' })} style={{ height: 42, paddingInline: 20, width: '100%', maxWidth: 320, fontSize: 13, borderRadius: 10, fontWeight: 800, color: '#FFFFFF', background: '#0B57D0', border: '1px solid #0B57D0', boxShadow: '0 6px 20px rgba(11,87,208,0.25)', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 8, boxSizing: 'border-box' }}>
+                      Explore Pipeline Demo →
                     </button>
                   </div>
                 </div>
@@ -535,8 +535,8 @@ function ShowcaseSection({ onLaunch, P = PALETTE }) {
                     When handwriting confidence dips below 80%, fields are highlighted in yellow and routed to district verifiers with one-click approval.
                   </p>
                   <div style={{ marginTop: 20 }}>
-                    <button onClick={onLaunch} style={{ height: 42, paddingInline: 22, fontSize: 13.5, borderRadius: 12, fontWeight: 800, color: '#FFFFFF', background: '#0B57D0', border: '1px solid #0B57D0', boxShadow: '0 8px 24px rgba(11,87,208,0.25)', cursor: 'pointer' }}>
-                      Test Verification Station →
+                    <button onClick={() => document.getElementById('platform')?.scrollIntoView({ behavior: 'smooth' })} style={{ height: 42, paddingInline: 22, fontSize: 13.5, borderRadius: 12, fontWeight: 800, color: '#FFFFFF', background: '#0B57D0', border: '1px solid #0B57D0', boxShadow: '0 8px 24px rgba(11,87,208,0.25)', cursor: 'pointer' }}>
+                      See How It Works →
                     </button>
                   </div>
                 </div>
