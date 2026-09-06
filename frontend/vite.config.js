@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+﻿import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 const proxyTarget = process.env.VITE_PROXY_TARGET || 'http://localhost:8000'
@@ -32,7 +32,7 @@ export default defineConfig({
       },
     },
   },
-  // Production preview (npm run preview) must reach the backend too —
+  // Production preview (npm run preview) must reach the backend too â€”
   // otherwise login/API calls fail with confusing console errors.
   preview: {
     host: true,
